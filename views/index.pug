@@ -7,75 +7,49 @@ block content
             h2.h2= pageTitle
             .btn-toolbar.mb-2.mb-md-0
                 .btn-group.mr-2
-                button.btn.btn-sm.btn-outline-secondary.dropdown-toggle(type='button') Trạm
+                .dropdown
+                    button#menu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown')
+                        | Trạm
+                        span.caret
+                    ul.dropdown-menu(role='menu', aria-labelledby='menu1')
+                        li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') HTML
+                        li(role='presentation')
+                        a(role='menuitem', tabindex='-1', href='#') CSS
 
-        canvas#myChart.my-4.w-100(width='900', height='380')
+        .row.card-deck
+            .col-sm-6
+                .card.bg-primary
+                .card-body.text-center
+                    h5.card-title Mực nước hiện tại
+                    .progress(style='height: 25px;')
+                        .progress-bar(role='progressbar', style='width:'+waterLevelCurrent+'%;', aria-valuenow='30', aria-valuemin='0', aria-valuemax='100')= waterLevelCurrent+" m"
+                    p.card-text Mực nước hiện tại:
+                        span=waterLevelCurrent+" m"
+                    a.btn.btn-primary(href='#') View&nbsp;
+                        i.fa.fa-caret-right
+            .col-sm-6
+                .card.bg-warning
+                .card-body.text-center
+                    h5.card-title Cảnh báo
+                    i.fa.fa-warning(style='font-size:28px;color:#F39C12')
+                    p.card-text Cảnh báo khi mực nước vượt giới hạn.
+                    a.btn.btn-primary(href='#') View&nbsp;
+                        i.fa.fa-caret-right
 
         h2 Bảng thống kê dữ liệu
         .table-responsive
-            table.table.table-striped
-                thead
-                tr
+            table.table.table-striped.table-bordered.table-hover
+                thead.
+                tr.table-danger
                     th Date
                     th Time
-                    th Water level
+                    th.text-center Water level[m]
                 tbody
                     each data in datas
                         tr.p-5
                             td= data.date
-                            td= data.time
-                            td= data.waterLevel
-block  test
-    script.
-        (function() {
-        var time = [];
-        
-        feather.replace();
-        // Graphs
-        var ctx = document.getElementById('myChart')
-        // eslint-disable-next-line no-unused-vars
-        var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-        labels: [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-        ],
-        datasets: [{
-        data: [
-        15339,
-        21345,
-        18483,
-        24003,
-        23489,
-        24092,
-        12034
-        ],
-        lineTension: 0,
-        backgroundColor: 'transparent',
-        borderColor: '#007bff',
-        borderWidth: 4,
-        pointBackgroundColor: '#007bff'
-        }]
-        },
-        options: {
-        scales: {
-        yAxes: [{
-        ticks: {
-        beginAtZero: false
-        }
-        }]
-        },
-        legend: {
-        display: false
-        }
-        }
-        })
-        }())                  
+                            td= data.time             
+                            td.text-center.text-primary= data.waterLevel
                
 
