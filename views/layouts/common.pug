@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title=title
+        link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+        link(href="/images/favicon.ico", rel="shortcut icon")
+        link(href='/stylesheets/common.css', rel='stylesheet')
+    body
+
+    nav.navbar.sticky-top.flex-md-nowrap.shadow.navbar-dark(style='background-color: #6f42c1;')
+            a.navbar-brand.col-md-3.col-lg-2.mr-0.px-3(href='#') Flood Monitoring
+            button.navbar-toggler.position-absolute.d-md-none.collapsed(type='button', data-toggle='collapse', data-target='#sidebarMenu', aria-controls='sidebarMenu', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            input.form-control.form-control-dark.w-100(type='text', placeholder='Search', aria-label='Search')
+            ul.navbar-nav.px-3
+                li.nav-item.text-nowrap
+                    a.nav-link(href='#') Đăng xuất
+
+    .container-fluid
+        .row
+            nav#sidebarMenu.col-md-3.col-lg-2.d-md-block.bg-light.sidebar.collapse.sidebar-sticky.pt-3
+                ul.nav.flex-column
+                    li.nav-item 
+                        a.nav-link.active(href='#') 
+                            span(data-feather='home')
+                            |Bảng điều khiển
+                            span.sr-only (current) 
+                    li.nav-item
+                        a.nav-link(href='#')
+                            span(data-feather='bar-chart-2')  
+                            |Mực nước
+                    li.nav-item
+                        a.nav-link(href='#')
+                            span(data-feather='layers')
+                            |Cảnh báo
+                h6.sidebar-heading.d-flex.justify-content-between.align-items-center.px-3.mt-4.mb-1.text-muted
+                    span More
+                    a.d-flex.align-items-center.text-muted(href='#', aria-label='Add a new report')
+                ul.nav.flex-column.mb-2
+                    li.nav-item
+                        a.nav-link(href='#')
+                            span(data-feather='file-text')
+                            |Giới thiệu
+                    li.nav-item
+                        a.nav-link(href='#')
+                            span(data-feather='file-text')
+                            |Liên hệ
+            block content
+
+    footer.blog-footer
+        p Website 
+            a(href='https://twitter.com/mdo') @Hệ Thống cảnh báo ngập lụt
+        a(href='#') Back to top
+
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js")
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js")
+
+    block test
+    
+
+    
