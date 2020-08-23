@@ -5,11 +5,11 @@ module.exports.index_CL = async function(req, res) {
     res.json(datas);
 };
 
+// module.exports.create_CL = async function(req, res) {
+//     var data = await Data.create(req.body);
+//     res.json(data);
 
+//     io.emit('Client_gui', "thang");
 
-module.exports.create_CL = async function(req, res) {
-    //TODO: khi post dữ liệu
-    var data = await Data.create(req.body);
-    res.json(data);
-
-}
+//     // io.emit('message', req.body);
+// };

@@ -5,8 +5,7 @@ var router = express.Router();
 
 router.get('/', controller.index_CL);
 
-router.post('/', controller.create_CL);
-
+// router.post('/', controller.create_CL);
 
 
 // export ra cái router của index
