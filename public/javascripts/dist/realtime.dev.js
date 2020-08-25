@@ -4,7 +4,7 @@ var arTime = [];
 var arData = [];
 $(function () {
   // Kết nối tới server socket đang lắng nghe
-  var socket = io('http://localhost:3000'); // socket.emit('Client_gui', "thang");
+  var socket = io('https://flood-monitoring.herokuapp.com'); // socket.emit('Client_gui', "thang");
   //realtime event post data
 
   socket.on("Client_gui", function (data) {
@@ -51,7 +51,7 @@ $(function () {
 });
 $(document).ready(function () {
   $.ajax({
-    url: 'http://localhost:3000/api/data',
+    url: 'https://flood-monitoring.herokuapp.com/api/data',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
