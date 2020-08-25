@@ -39,7 +39,21 @@ app.set('view engine', 'pug');
 app.set("views", "./views");
 app.use('/', userRouter);
 app.use('/api/data', apiData);
-app.use('/api/user', apiUser); //Tạo socket 
+app.use('/api/user', apiUser);
+app.get('/', function (req, res) {
+  res.sendfile(__dirname + '/public/index.html'); //__dirname : It will resolve to your project folder.
+});
+app.get('/login', function (req, res) {
+  res.sendfile(__dirname + '/public/login.html');
+}); // app.get('/public/login.html', function(req, res) {
+//     res.sendfile(__dirname + '/public/login.html');
+//     //__dirname : It will resolve to your project folder.
+// });
+// app.get('/public/index.html', function(req, res) {
+//     res.sendfile(__dirname + '/public/index.html');
+//     //__dirname : It will resolve to your project folder.
+// });
+//Tạo socket 
 
 io.on("connection", function (socket) {
   console.log("user connected");
@@ -79,5 +93,5 @@ app.post("/api/setup", function (req, res) {
 }); //end test setup
 
 server.listen(port, function () {
-  console.log("- Waiting connection at port:");
+  console.log("- Waiting connection at port:" + port);
 });

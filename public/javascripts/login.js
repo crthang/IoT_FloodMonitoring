@@ -26,7 +26,7 @@ $(document).ready(function() {
                     console.log(username + password);
                     if (txtUsername == username && txtPassword == password) {
                         sessionStorage.setItem('checklogin', 'admin');
-                        location.href = '../public/index.html';
+                        location.href = '/';
 
                     } else {
                         alert("Tài khoản hoặc mật khẩu chưa đúng!");
