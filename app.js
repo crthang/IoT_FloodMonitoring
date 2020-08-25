@@ -15,7 +15,7 @@ var io = require('socket.io')(server);
 
 app.use(express.static('public'));
 
-// var port = 3000;
+var port = process.env.PORT || 3000;
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -80,6 +80,6 @@ app.post("/api/setup", function(req, res) {
 });
 //end test setup
 
-server.listen(3000, function() {
-    console.log("- Waiting connection at port: 3000");
+server.listen(port, function() {
+    console.log("- Waiting connection at port:");
 });

@@ -24,8 +24,8 @@ var server = require('http').createServer(app);
 
 var io = require('socket.io')(server);
 
-app.use(express["static"]('public')); // var port = 3000;
-
+app.use(express["static"]('public'));
+var port = process.env.PORT || 3000;
 app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   next();
@@ -78,6 +78,6 @@ app.post("/api/setup", function (req, res) {
   console.log(req.body); // io.emit('Client_gui_setup', req.body);
 }); //end test setup
 
-server.listen(3000, function () {
-  console.log("- Waiting connection at port: 3000");
+server.listen(port, function () {
+  console.log("- Waiting connection at port:");
 });
