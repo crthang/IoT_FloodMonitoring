@@ -73,6 +73,12 @@ app.post("/api/data", function (req, res) {
   var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
   var year = date_ob.getFullYear();
   var hours = parseInt(date_ob.getHours()) + 7;
+
+  if (hours >= 24) {
+    date = ("0" + parseInt(date_ob.getDate() + 1)).slice(-2);
+    hours = parseInt(hours) - 24;
+  }
+
   var minutes = date_ob.getMinutes();
   var seconds = date_ob.getSeconds();
   var a = year + "-" + month + "-" + date;
