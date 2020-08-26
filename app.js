@@ -65,13 +65,10 @@ io.on("connection", socket => {
 //     io.emit('Client_gui', req.body);
 // });
 
-var nDate = new Date().toLocaleString('vi-VN', {
+var date_ob = new Date().toLocaleString('vi-VN', {
     timeZone: 'Asia/Ho_Chi_Minh'
 });
-console.log(nDate);
-
-
-var date_ob = new Date();
+console.log("Time zone: " + date_ob);
 
 var date = ("0" + date_ob.getDate()).slice(-2);
 var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -83,7 +80,6 @@ var seconds = date_ob.getSeconds();
 
 var a = year + "-" + month + "-" + date;
 var b = hours + ":" + minutes + ":" + seconds;
-
 
 app.post("/api/data", function(req, res) {
     var da = new Data({
@@ -99,7 +95,6 @@ app.post("/api/data", function(req, res) {
 
     io.emit('Client_gui', da);
 })
-
 
 
 // test setup
