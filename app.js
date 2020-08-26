@@ -65,10 +65,10 @@ io.on("connection", socket => {
 //     io.emit('Client_gui', req.body);
 // });
 
-var nDate = new Date().toLocaleString('vi-VN', {
-    timeZone: 'Asia/Ho_Chi_Minh'
-});
-console.log(nDate);
+// var nDate = new Date().toLocaleString('en-GB', {
+//     timeZone: 'Asia/Ho_Chi_Minh'
+// });
+// console.log(nDate);
 
 
 var date_ob = new Date();
@@ -78,7 +78,7 @@ var date = ("0" + date_ob.getDate()).slice(-2);
 var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 var year = date_ob.getFullYear();
 
-var hours = date_ob.getHours();
+var hours = parseInt(date_ob.getHours()) + 7;
 var minutes = date_ob.getMinutes();
 var seconds = date_ob.getSeconds();
 
