@@ -67,18 +67,18 @@ io.on("connection", function (socket) {
 // });
 // console.log(nDate);
 
-var date_ob = new Date();
-var date = ("0" + date_ob.getDate()).slice(-2);
-var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
-var year = date_ob.getFullYear();
-var hours = parseInt(date_ob.getHours()) + 7;
-var minutes = date_ob.getMinutes();
-var seconds = date_ob.getSeconds();
-var a = year + "-" + month + "-" + date;
-var b = hours + ":" + minutes + ":" + seconds;
-console.log("date: " + a);
-console.log("time: " + b);
 app.post("/api/data", function (req, res) {
+  var date_ob = new Date();
+  var date = ("0" + date_ob.getDate()).slice(-2);
+  var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+  var year = date_ob.getFullYear();
+  var hours = parseInt(date_ob.getHours()) + 7;
+  var minutes = date_ob.getMinutes();
+  var seconds = date_ob.getSeconds();
+  var a = year + "-" + month + "-" + date;
+  var b = hours + ":" + minutes + ":" + seconds;
+  console.log("date: " + a);
+  console.log("time: " + b);
   var da = new Data({
     waterLevel: req.param('waterLevel'),
     date: a,
