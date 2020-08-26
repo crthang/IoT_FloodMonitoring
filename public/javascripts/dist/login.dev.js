@@ -11,7 +11,7 @@ $(document).ready(function () {
       var username;
       var password;
       $.ajax({
-        url: 'http://localhost:3000/api/user',
+        url: 'https://flood-monitoring.herokuapp.com/api/user',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },

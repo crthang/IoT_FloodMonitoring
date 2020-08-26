@@ -7,7 +7,7 @@ $(document).ready(function () {
     var txtStationNumber = document.querySelector('#stationNumber').value;
     console.log('progest setup....' + txtWaterLevelLimit + " || " + txtStationNumber);
     $.ajax({
-      url: 'http://localhost:3000/api/setup',
+      url: 'https://flood-monitoring.herokuapp.com/api/setup',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       },
