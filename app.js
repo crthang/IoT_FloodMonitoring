@@ -72,7 +72,7 @@ io.on("connection", socket => {
 
 
 var date_ob = new Date();
-console.log(date_ob);
+
 
 var date = ("0" + date_ob.getDate()).slice(-2);
 var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -84,6 +84,9 @@ var seconds = date_ob.getSeconds();
 
 var a = year + "-" + month + "-" + date;
 var b = hours + ":" + minutes + ":" + seconds;
+
+console.log("date: " + a);
+console.log("time: " + b);
 
 
 app.post("/api/data", function(req, res) {
