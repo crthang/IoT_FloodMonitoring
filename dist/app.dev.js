@@ -45,15 +45,7 @@ app.get('/', function (req, res) {
 });
 app.get('/login', function (req, res) {
   res.sendfile(__dirname + '/public/login.html');
-}); // app.get('/public/login.html', function(req, res) {
-//     res.sendfile(__dirname + '/public/login.html');
-//     //__dirname : It will resolve to your project folder.
-// });
-// app.get('/public/index.html', function(req, res) {
-//     res.sendfile(__dirname + '/public/index.html');
-//     //__dirname : It will resolve to your project folder.
-// });
-//Tạo socket 
+}); //Tạo socket 
 
 io.on("connection", function (socket) {
   console.log("user connected");
@@ -70,6 +62,28 @@ app.post("/api/data", function (req, res) {
   console.log("Server: co data gui len");
   console.log(req.body);
   io.emit('Client_gui', req.body);
+});
+var date_ob = new Date();
+var date = ("0" + date_ob.getDate()).slice(-2);
+var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
+var year = date_ob.getFullYear();
+var hours = date_ob.getHours();
+var minutes = date_ob.getMinutes();
+var seconds = date_ob.getSeconds();
+var a = year + "-" + month + "-" + date;
+var b = hours + ":" + minutes + ":" + seconds; //app.get('/waterLevel/:waterLevel/date/:date/time/:time', (req, res, next)
+
+app.get('/waterLevel/:waterLevel', function (req, res, next) {
+  var da = new Data({
+    waterLevel: req.param('waterLevel'),
+    date: a,
+    time: b
+  });
+  var data = Data.create(da);
+  res.json(data);
+  console.log("Server: co data gui len");
+  console.log(da);
+  io.emit('Client_gui', da);
 }); // test setup
 
 app.post("/api/setup", function (req, res) {
