@@ -64,7 +64,7 @@ io.on("connection", function (socket) {
 // });
 
 var nDate = new Date().toLocaleString('vi-VN', {
-  timeZone: 'Asia/Ho Chi Minh City'
+  timeZone: 'Asia/Hanoi'
 });
 console.log(nDate);
 var date_ob = new Date();
