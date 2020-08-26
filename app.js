@@ -65,7 +65,7 @@ io.on("connection", socket => {
 //     io.emit('Client_gui', req.body);
 // });
 
-const nDate = new Date().toLocaleString('vi-VN', {
+var nDate = new Date().toLocaleString('vi-VN', {
     timeZone: 'Asia/Ho Chi Minh City'
 });
 console.log(nDate);
