@@ -63,10 +63,12 @@ io.on("connection", function (socket) {
 //     io.emit('Client_gui', req.body);
 // });
 
-var date_ob = new Date().toLocaleString('vi-VN', {
+var nDate = new Date().toLocaleString('vi-VN', {
   timeZone: 'Asia/Ho_Chi_Minh'
 });
-console.log("Time zone: " + date_ob);
+console.log(nDate);
+var date_ob = new Date();
+console.log(date_ob);
 var date = ("0" + date_ob.getDate()).slice(-2);
 var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
 var year = date_ob.getFullYear();
