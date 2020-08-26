@@ -56,14 +56,19 @@ io.on("connection", socket => {
     });
 });
 
-app.post("/api/data", function(req, res) {
-    var data = Data.create(req.body);
-    res.json(data);
-    console.log("Server: co data gui len");
-    console.log(req.body);
+// app.post("/api/data", function(req, res) {
+//     var data = Data.create(req.body);
+//     res.json(data);
+//     console.log("Server: co data gui len");
+//     console.log(req.body);
 
-    io.emit('Client_gui', req.body);
+//     io.emit('Client_gui', req.body);
+// });
+
+const nDate = new Date().toLocaleString('vi-VN', {
+    timeZone: 'Asia/Ho Chi Minh City'
 });
+console.log(nDate);
 
 
 var date_ob = new Date();
@@ -79,8 +84,8 @@ var seconds = date_ob.getSeconds();
 var a = year + "-" + month + "-" + date;
 var b = hours + ":" + minutes + ":" + seconds;
 
-//app.get('/waterLevel/:waterLevel/date/:date/time/:time', (req, res, next)
-app.get('/waterLevel/:waterLevel', (req, res, next) => {
+
+app.post("/api/data", function(req, res) {
     var da = new Data({
         waterLevel: req.param('waterLevel'),
         date: a,

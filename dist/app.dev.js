@@ -55,14 +55,18 @@ io.on("connection", function (socket) {
   socket.on("Client_gui", function (data) {
     console.log("message: " + data);
   });
+}); // app.post("/api/data", function(req, res) {
+//     var data = Data.create(req.body);
+//     res.json(data);
+//     console.log("Server: co data gui len");
+//     console.log(req.body);
+//     io.emit('Client_gui', req.body);
+// });
+
+var nDate = new Date().toLocaleString('vi-VN', {
+  timeZone: 'Asia/Ho Chi Minh City'
 });
-app.post("/api/data", function (req, res) {
-  var data = Data.create(req.body);
-  res.json(data);
-  console.log("Server: co data gui len");
-  console.log(req.body);
-  io.emit('Client_gui', req.body);
-});
+console.log(nDate);
 var date_ob = new Date();
 var date = ("0" + date_ob.getDate()).slice(-2);
 var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
@@ -71,9 +75,8 @@ var hours = date_ob.getHours();
 var minutes = date_ob.getMinutes();
 var seconds = date_ob.getSeconds();
 var a = year + "-" + month + "-" + date;
-var b = hours + ":" + minutes + ":" + seconds; //app.get('/waterLevel/:waterLevel/date/:date/time/:time', (req, res, next)
-
-app.get('/waterLevel/:waterLevel', function (req, res, next) {
+var b = hours + ":" + minutes + ":" + seconds;
+app.post("/api/data", function (req, res) {
   var da = new Data({
     waterLevel: req.param('waterLevel'),
     date: a,
