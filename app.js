@@ -38,7 +38,6 @@ app.use('/api/user', apiUser);
 
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/public/index.html');
-    //__dirname : It will resolve to your project folder.
 });
 
 app.get('/login', function(req, res) {
@@ -134,5 +133,5 @@ app.post("/api/setup", function(req, res) {
 //end test setup
 
 server.listen(port, function() {
-    console.log("- Waiting connection at port:" + port);
+    console.log("- Connected at port:" + port);
 });
