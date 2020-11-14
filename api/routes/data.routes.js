@@ -3,10 +3,9 @@ var controller = require('../controllers/data.controller');
 
 var router = express.Router();
 
-router.get('/', controller.index_CL);
+router.get('/', controller.index);
 
-// router.post('/', controller.create_CL);
-
+router.get('/tram/:tram', controller.maTram);
 
 // export ra cái router của index
 module.exports = router;

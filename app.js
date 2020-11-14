@@ -1,27 +1,24 @@
 require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
+var app = express();
+
+//TODO: require các Routes
 var userRouter = require('./routes/index.router');
+//Route API
 var apiData = require('./api/routes/data.routes');
 var apiUser = require('./api/routes/user.routes');
-var Data = require('./models/data.model');
-var Setup = require('./models/setup.model');
-var mongoose = require('mongoose');
 
-var app = express();
+//TODO: require các Models
+var Data = require('./models/data.model');
+var Station = require('./models/station.model');
 
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 app.use(express.static('public'));
-
 var port = process.env.PORT || 3000;
-
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    next();
-});
-
 mongoose.connect(process.env.MONGO_URL);
 
 app.use(bodyParser.json());
@@ -30,11 +27,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'pug');
 app.set("views", "./views");
 
+//TODO: SETUP các Route
 app.use('/', userRouter);
-
+//Route API
 app.use('/api/data', apiData);
 
+
 app.use('/api/user', apiUser);
+
 
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/public/index.html');
@@ -54,20 +54,6 @@ io.on("connection", socket => {
         console.log("message: " + data);
     });
 });
-
-// app.post("/api/data", function(req, res) {
-//     var data = Data.create(req.body);
-//     res.json(data);
-//     console.log("Server: co data gui len");
-//     console.log(req.body);
-
-//     io.emit('Client_gui', req.body);
-// });
-
-// var nDate = new Date().toLocaleString('en-GB', {
-//     timeZone: 'Asia/Ho_Chi_Minh'
-// });
-// console.log(nDate);
 
 
 app.post("/api/data", function(req, res) {
@@ -106,7 +92,6 @@ app.post("/api/data", function(req, res) {
 
     io.emit('Client_gui', da);
 })
-
 
 
 // test setup

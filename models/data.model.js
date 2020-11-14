@@ -10,5 +10,5 @@ var dataSchema = new mongoose.Schema({
     thoi_gian: String
 });
 
-var Data = mongoose.model('Data', dataSchema, 'data');
+var Data = mongoose.model('Data', dataSchema, 'du_lieu');
 module.exports = Data;
