@@ -1,11 +1,15 @@
 var arTime = [];
 var arData = [];
+var soDongDuLieu = 0;
+var tram = document.getElementById("tram").text;
 
+console.log('Đang chạy realtime...');
+
+//*Hàm xử lý realtime
 $(function() {
     // Kết nối tới server socket đang lắng nghe
-    var socket = io('https://flood-monitoring.herokuapp.com');
-
-    // socket.emit('Client_gui', "thang");
+    //https://flood-monitoring.herokuapp.com
+    var socket = io('http://localhost:3000');
 
     //realtime event post data
     socket.on("Client_gui", function(data) {
@@ -16,15 +20,13 @@ $(function() {
         const divv = document.querySelector('#widthWaterCurrent');
         divv.setAttribute('style', 'width:' + data.waterLevel + '%');
 
-
+        // Tạo bảng dữ liệu
         $("#tableData").append("<tr class='p-5'><td>" + data.date + "</td>" +
             "<td>" + data.time + "</td>" +
             "<td class='text-center text-primary'>" + data.waterLevel + "</td></tr>");
 
-
-        // chart
+        // Tạo biểu đồ dữ liệu
         var ctx = document.getElementById('myChart');
-
         arTime.push(data.time);
         arData.push(data.waterLevel);
         // eslint-disable-next-line no-unused-vars
@@ -56,16 +58,25 @@ $(function() {
             })
             // end chart
         addData(myChart, data.date, data.waterLevel);
-
-
     });
-
 })
 
+//*Hàm load dữ liệu khi bắt đầu chạy
 $(document).ready(function() {
+    loadData("0001");   
+    console.log('Load data finish');
+});
 
+//* hàm tạo dữ liệu
+//* ma_tram: truyền vào mã trạm cần load dữ liệu
+//* isLoad: nếu load lần 1 thì không khởi tạo lại dữ liệu
+function loadData(ma_tram) {
+    
+    var arTime = [];
+    var arData = [];
     $.ajax({
-        url: 'https://flood-monitoring.herokuapp.com/api/data',
+        //https://flood-monitoring.herokuapp.com/api/data
+        url: 'http://localhost:3000/api/data/tram/'+ma_tram,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -74,11 +85,10 @@ $(document).ready(function() {
         dataType: "json",
         data: {},
         success: function(result) {
-            // console.log(result);
-
+         
             var leg = result.length;
-            var waterCurrent = ' ' + (result[leg - 1].waterLevel);
-            var timeUpdate = ' ' + (result[leg - 1].date);
+            var waterCurrent = ' ' + (result[leg - 1].muc_nuoc);
+            var timeUpdate = ' ' + (result[leg - 1].thoi_gian);
 
             $("#spanCurrentWater").text(waterCurrent + " m");
             $("#currentWaterLevel").text(timeUpdate);
@@ -87,26 +97,30 @@ $(document).ready(function() {
             const divv = document.querySelector('#widthWaterCurrent');
             divv.setAttribute('style', 'width:' + waterCurrent + '%');
 
+            //*Tạo bảng dữ liệu
+            var dem = 1;
             $.each(result, function(a, b) {
-                arTime.push(b.time);
-                arData.push(b.waterLevel);
+               
+                arTime.push(b.thoi_gian);
+                arData.push(b.muc_nuoc);
 
-                $("#tableData").append("<tr class='p-5'><td>" + b.date + "</td>" +
-                    "<td>" + b.time + "</td>" +
-                    "<td class='text-center text-primary'>" + b.waterLevel + "</td></tr>");
+                $("#tableData").append("<tr class='p-5'><td>" + dem + "</td><td>" + b.ngay_thang + "</td>" +
+                    "<td>" + b.thoi_gian + "</td>" +
+                    "<td class='text-center text-primary'>" + b.muc_nuoc + "</td></tr>");
+
+                    soDongDuLieu++;
+                    dem++;
             });
-            // $("#tableData").DataTable();
 
-            // chart
 
+            //* Vẽ biểu đồ
             var ctx = document.getElementById('myChart')
-                // eslint-disable-next-line no-unused-vars
             var myChart = new Chart(ctx, {
                     type: 'line',
                     data: {
-                        labels: arTime,
+                        labels: arTime, //* truyền vào thời gian
                         datasets: [{
-                            data: arData,
+                            data: arData,   //*truyển vào dữ liệu
                             lineTension: 0,
                             backgroundColor: 'transparent',
                             borderColor: '#007bff',
@@ -126,15 +140,16 @@ $(document).ready(function() {
                             display: false
                         }
                     }
-                })
+            })
                 // end chart
         },
         error: function() {
             console.log("error");
         }
     });
-});
+}
 
+//*Hàm update dữ liệu vào biểu đồ
 function addData(chart, label, data) {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {

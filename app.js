@@ -4,12 +4,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var app = express();
 
-//TODO: require các Routes
-var userRouter = require('./routes/index.router');
-//Route API
-var apiData = require('./api/routes/data.routes');
-var apiUser = require('./api/routes/user.routes');
-
 //TODO: require các Models
 var Data = require('./models/data.model');
 var Station = require('./models/station.model');
@@ -28,13 +22,12 @@ app.set('view engine', 'pug');
 app.set("views", "./views");
 
 //TODO: SETUP các Route
-app.use('/', userRouter);
+app.use('/', require('./routes/index.router'));
+
 //Route API
-app.use('/api/data', apiData);
-
-
-app.use('/api/user', apiUser);
-
+app.use('/api/data',    require('./api/routes/data.routes'));
+app.use('/api/user',    require('./api/routes/user.routes'));
+app.use('/api/station', require('./api/routes/station.routes'));
 
 app.get('/', function(req, res) {
     res.sendfile(__dirname + '/public/index.html');
