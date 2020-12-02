@@ -106,7 +106,7 @@
 
             <div class="col-md-9 ml-sm-auto col-lg-10 px-md-4" role="main">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-2 border-bottom">
-                    <h4 class="h4">Dữ liệu trạm: <a id="tram" href="#">0001</a></h4>
+                    <h4 class="h4">Dữ liệu trạm: <a id="tram"  href="#" data-toggle="modal" data-target="#XemTram">0001</a></h4>
                         <div class="btn-toolbar mb-2 mb-md-0">
                             <div class="btn-group mr-2">
                                 <div class="dropdown">
@@ -196,42 +196,60 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <!-- Modal body -->
+                <form id="formThemTram" action="/api/station" method="POST">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="maTram">Mã trạm:</label>
-                        <input type="text" class="form-control" id="maTram" placeholder="Nhập mã trạm">
+                        <input type="text" class="form-control" id="maTram" name="ma_tram" placeholder="Nhập mã trạm">
                     </div>
 
                     <div class="form-group">
                         <label for="tenTram">Tên trạm:</label>
-                        <input type="text" class="form-control" id="tenTram" placeholder="Nhập tên trạm">
+                        <input type="text" class="form-control" id="tenTram" name="ten_tram" placeholder="Nhập tên trạm">
                     </div>
 
                     <div class="form-group">
                         <label>Vị trí:</label>
                         <div class="row">
                             <div class="col">
-                                <input type="text" class="form-control" id="email" placeholder="Kinh độ">
+                                <input type="text" class="form-control" name="kinh_do" id="email" placeholder="Kinh độ">
                             </div>
                             <div class="col">
-                                <input type="text" class="form-control" placeholder="Vĩ độ">
+                                <input type="text" class="form-control" name="vi_do" placeholder="Vĩ độ">
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="sdt">Số điện thoại:</label>
-                        <input type="phone" class="form-control" id="sdt" placeholder="Nhập số điện thoại">
+                        <label for="sdt" >Số điện thoại:</label>
+                        <input type="phone" class="form-control" name="sdt" id="sdt" placeholder="Nhập số điện thoại">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mực cảnh báo:</label>
+                        <div class="row">
+                            <div class="col">
+                                <input type="number" class="form-control" name="muc_1" placeholder="Mức 1">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="muc_2" placeholder="Mức 2">
+                            </div>
+                            <div class="col">
+                                <input type="number" class="form-control" name="muc_3" placeholder="Mức 3">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Thêm</button>
+                    <button type="submit" class="btn btn-success" onclick="themTram()">Thêm</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                 </div>
+                </form> 
             </div>
         </div>
     </div>
+
     <!-- Modal Xem trạm -->
     <div class="modal fade" id="XemTram">
         <div class="modal-dialog">
@@ -247,25 +265,25 @@
                     <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Mã trạm:
-                            <span id="xem_ma_tram" class="badge badge-primary badge-pill">12</span>
+                            <span id="xem_ma_tram" class="badge-primary badge-pill">null</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Tên trạm:
-                            <span id="xem_ten_tram" class="badge badge-primary badge-pill">50</span>
+                            <span id="xem_ten_tram" class="badge-primary badge-pill">null</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Vị trí:
-                            <span id="xem_vi_tri_tram" class="badge badge-primary badge-pill">99</span>
+                            <span id="xem_vi_tri_tram" class=" badge-primary badge-pill">null</span>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             Số điện thoại:
-                            <span id="xem_sdt_tram" class="badge badge-primary badge-pill">99</span>
+                            <span id="xem_sdt_tram" class=" badge-primary badge-pill">null</span>
                         </li>
                     </ul>
                     <div class="row">
-                        <div class="col text-center">Mực cảnh báo cấp 1</div>
-                        <div class="col text-center">Mực cảnh báo cấp 2</div>
-                        <div class="col text-center">Mực cảnh báo cấp 3</div>
+                        <div class="col text-center" id="xem_muc_canhbao_1">Mực cảnh báo cấp 1</div>
+                        <div class="col text-center" id="xem_muc_canhbao_2">Mực cảnh báo cấp 2</div>
+                        <div class="col text-center" id="xem_muc_canhbao_3">Mực cảnh báo cấp 3</div>
                     </div>
                 </div>
                 <!-- Modal footer -->
@@ -337,7 +355,8 @@
             $("a.dstram").click(function () {
                 var tagID = $(this).attr('id'); 
                 checkStation(tagID);
-                loadData(tagID);   
+                loadData(tagID); 
+                getInfoStation(tagID);
                 for( var i  = 0; i < soDongDuLieu; i ++){
                     document.getElementById("tableData").deleteRow(1);
                 }
@@ -345,7 +364,12 @@
             });
         });
     </script>
-    <!-- //* Xử lý hiển thị thông tin trạm -->
+
+<script>
+    function themTram() {
+      document.getElementById("formThemTram").submit();
+    }
+    </script>
 
 </body>
 

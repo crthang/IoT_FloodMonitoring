@@ -3,10 +3,14 @@ var controller = require('../controllers/station.controller');
 
 var router = express.Router();
 
-// lấy tất cả data - ex: http://localhost:3000/api/data
+//* Router lấy tất cả các trạm - ex: http://localhost:3000/api/data
 router.get('/', controller.index);
-// lấy data theo trạm - ex: http://localhost:3000/api/data/tram/0001
-router.get('/station/:tram', controller.maTram);
 
-// export ra cái router của index
+//* Router lấy thông tin trạm theo Mã trạm - ex: http://localhost:3000/api/station/0001
+router.get('/:ma_tram', controller.xemTram);
+
+//* Router thêm trạm mới
+router.post('/', controller.themTram);
+
+// export ra router của station
 module.exports = router;

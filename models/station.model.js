@@ -11,6 +11,9 @@ var stationSchema = new mongoose.Schema({
     muc_1: Number,
     muc_2: Number,
     muc_3: Number
+},
+{
+    versionKey: false //không tự thêm versionKey khi thêm dữ liệu
 });
 
 var Station = mongoose.model('Station', stationSchema, 'tram');

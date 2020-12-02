@@ -1,7 +1,9 @@
 var ten_tram;
 var ma_tram;
 var temp ="";
+var id = document.getElementById("tram").text;
 
+//*Hiển thị danh danh sách trạm trong menu
 $.ajax({
     url: 'http://localhost:3000/api/station',
     headers: {
@@ -25,3 +27,46 @@ $.ajax({
     }
 });
 
+
+$(document).ready(function() {
+    getInfoStation(id);   
+    console.log('Load station finish');
+});
+
+
+//*Hiển thị thông tin trạm theo mã
+function getInfoStation(id) {
+    var ten_tram, ma_tram, sdt, vi_do, kinh_do, muc_1 , muc_2 , muc_3;
+    $.ajax({
+        url: 'http://localhost:3000/api/station/'+id,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        type: "GET", /* or type:"GET" or type:"PUT" */
+        dataType: "json",
+        data: {},
+        success: function(result) {
+            $.each(result, function(a,data) {
+                ten_tram = (data.ten_tram).toString();
+                ma_tram = (data.ma_tram).toString();
+                sdt = (data.sdt).toString();
+                vi_do = (data.vi_do).toString();
+                kinh_do = (data.kinh_do).toString();
+                muc_1 = (data.muc_1).toString();
+                muc_2 = (data.muc_2).toString();
+                muc_3 = (data.muc_3).toString();
+            });
+
+            $("#xem_ten_tram").text(ten_tram);
+            $("#xem_ma_tram").text(ma_tram);
+            $("#xem_vi_tri_tram").text( 'Kinh độ: '+kinh_do + " - Vĩ độ: " + vi_do);
+            $("#xem_sdt_tram").text(sdt);
+            $("#xem_muc_canhbao_1").text('Mực cảnh báo cấp 1 '+muc_1);
+            $("#xem_muc_canhbao_2").text('Mực cảnh báo cấp 2 '+ muc_2);
+            $("#xem_muc_canhbao_3").text('Mực cảnh báo cấp 3 '+muc_3);
+        },
+        error: function() {
+            console.log("error");
+        }
+    });
+}

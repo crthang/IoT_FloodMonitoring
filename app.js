@@ -24,7 +24,7 @@ app.set("views", "./views");
 //TODO: SETUP các Route
 app.use('/', require('./routes/index.router'));
 
-//Route API
+//* Route API
 app.use('/api/data',    require('./api/routes/data.routes'));
 app.use('/api/user',    require('./api/routes/user.routes'));
 app.use('/api/station', require('./api/routes/station.routes'));
@@ -37,7 +37,7 @@ app.get('/login', function(req, res) {
     res.sendfile(__dirname + '/public/login.html');
 });
 
-//Tạo socket 
+//*Tạo socket 
 io.on("connection", socket => {
     console.log("user connected");
     socket.on("disconnect", function() {
@@ -87,7 +87,7 @@ app.post("/api/data", function(req, res) {
 })
 
 
-// test setup
+//* test setup
 app.post("/api/setup", function(req, res) {
     // var setup = Setup.create(req.body);
     Setup.updateOne({ _id: "5f423e658f7c44f22f62b30f" }, {
@@ -108,7 +108,7 @@ app.post("/api/setup", function(req, res) {
 
     // io.emit('Client_gui_setup', req.body);
 });
-//end test setup
+//* end test setup
 
 server.listen(port, function() {
     console.log("- Connected at port:" + port);
