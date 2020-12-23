@@ -31,4 +31,24 @@ module.exports.themTram = async function(req, res) {
     res.redirect('/');
 };
 
-//TODO làm update thông tin trạm
+//*Cập nhật trạm
+module.exports.update = async function(req, res) {
+   
+    var ma_tram = req.params.id;
+    var req_muc_1   = req.body.muc_1;
+    var req_muc_2   = req.body.muc_2;
+    var req_muc_3   = req.body.muc_3;
+    
+    const query = { ma_tram: ma_tram };
+   
+    Station.findOneAndUpdate(query, 
+        {muc_1:req_muc_1, muc_2:req_muc_2, muc_3:req_muc_3}, function(err, data) {
+            if(err){
+                console.log(err);
+            }
+            else{
+                res.send(data);
+                console.log("Data updated!");
+            }
+        });  
+};

@@ -70,3 +70,37 @@ function getInfoStation(id) {
         }
     });
 }
+
+//* cập nhật thông tin trạm
+$(document).ready(function() {
+    $("#btnSave").click(function() {
+        console.log('progest setup....');
+
+        var txt_level_1 = document.querySelector('#waterLevelWarning1').value;
+        var txt_level_2 = document.querySelector('#waterLevelWarning2').value;
+        var txt_level_3 = document.querySelector('#waterLevelWarning3').value;
+
+        $.ajax({
+            url: 'http://localhost:3000/api/station/update/'+id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            type: "PUT",
+            /* or type:"GET" or type:"PUT" */
+            dataType: "json",
+            data: {
+                muc_1: txt_level_1,
+                muc_2: txt_level_2,
+                muc_3: txt_level_3
+            },
+            success: function(result) {
+                console.log("update station success!");
+                $('#setup').modal('hide');
+            },
+            error: function() {
+                console.log("update station error");
+                $('#setup').modal('hide');
+            }
+        });
+    });
+});
