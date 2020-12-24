@@ -8,6 +8,10 @@ var dataSchema = new mongoose.Schema({
     muc_nuoc: Number,
     ngay_thang: String,
     thoi_gian: String
+},
+{
+    versionKey: false //không tự thêm versionKey khi thêm dữ liệu
+
 });
 
 var Data = mongoose.model('Data', dataSchema, 'du_lieu');

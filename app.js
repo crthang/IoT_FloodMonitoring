@@ -39,8 +39,8 @@ app.get('/login', function(req, res) {
 
 //*Tạo socket 
 io.on("connection", socket => {
-    console.log("user connected");
-    socket.on("disconnect", function() {
+    console.log("- user connected");
+    socket.on("- disconnect", function() {
         console.log("user disconnected");
     });
     socket.on("Client_gui", function(data) {
@@ -49,7 +49,7 @@ io.on("connection", socket => {
 });
 
 
-app.post("/api/data", function(req, res) {
+app.get("/api/data/:muc_nuoc", function(req, res) {
     var date_ob = new Date();
 
     var date = ("0" + date_ob.getDate()).slice(-2);
@@ -73,9 +73,10 @@ app.post("/api/data", function(req, res) {
     console.log("time: " + b);
 
     var da = new Data({
-        waterLevel: req.param('waterLevel'),
-        date: a,
-        time: b
+        ma_tram: '0001',
+        muc_nuoc: req.params.muc_nuoc,
+        ngay_thang: a,
+        thoi_gian: b
     });
 
     var data = Data.create(da);
@@ -87,29 +88,6 @@ app.post("/api/data", function(req, res) {
 })
 
 
-//* test setup
-app.post("/api/setup", function(req, res) {
-    // var setup = Setup.create(req.body);
-    Setup.updateOne({ _id: "5f423e658f7c44f22f62b30f" }, {
-            stationNumber: req.body.stationNumber,
-            waterLevelLimit: req.body.waterLevelLimit
-        },
-        function(err, result) {
-            if (err) {
-                console.log(err);
-            } else {
-                console.log(result);
-            }
-        });
-    // res.json(setup);
-    res.sendStatus(200);
-    console.log("Server: co setup gui len");
-    console.log(req.body);
-
-    // io.emit('Client_gui_setup', req.body);
-});
-//* end test setup
-
 server.listen(port, function() {
-    console.log("- Connected at port:" + port);
+    console.log("Connected at port:" + port);
 });

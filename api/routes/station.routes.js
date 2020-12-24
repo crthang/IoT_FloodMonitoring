@@ -12,7 +12,7 @@ router.get('/:ma_tram', controller.xemTram);
 //* Router Thêm trạm mới
 router.post('/', controller.themTram);
 
-//* Router Cập nhật thông tin trạm
+//* Router Cập nhật thông tin trạm 
 router.put('/update/:id', controller.update);
 
 // export ra router của station

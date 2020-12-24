@@ -27,12 +27,10 @@ $.ajax({
     }
 });
 
-
 $(document).ready(function() {
     getInfoStation(id);   
     console.log('Load station finish');
 });
-
 
 //*Hiển thị thông tin trạm theo mã
 function getInfoStation(id) {
