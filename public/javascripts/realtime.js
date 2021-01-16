@@ -9,7 +9,7 @@ console.log('Đang chạy realtime...');
 
 var ma_tram, muc_1 , muc_2 , muc_3;
 $.ajax({
-    url: 'http://localhost:3000/api/station/'+tram,
+    url: HOST_URL+'/api/station/'+tram,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -34,13 +34,13 @@ $.ajax({
 
     // Kết nối tới server socket đang lắng nghe
     //https://flood-monitoring.herokuapp.com
-    var socket = io('http://localhost:3000');
+    var socket = io(HOST_URL);
 
     //realtime event post data
     socket.on("Client_gui", function(data) {
         console.log('client: có data gửi lên');
 
-        console.log(arTime);
+        console.log(data.muc_nuoc);
         
 
         $("#spanCurrentWater").text(data.muc_nuoc + " m");
@@ -88,9 +88,10 @@ $(document).ready(function() {
 function loadData(ma_tram) {
     var arTime = [];
     var arData = [];
+
     $.ajax({
         //https://flood-monitoring.herokuapp.com/api/data
-        url: 'http://localhost:3000/api/data/tram/'+ma_tram,
+        url: HOST_URL+'/api/data/tram/'+ma_tram,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -99,24 +100,23 @@ function loadData(ma_tram) {
         dataType: "json",
         data: {},
         success: function(result) {
-         
-            var leg = result.length;
-            var waterCurrent = ' ' + (result[leg - 1].muc_nuoc);
-            var timeUpdate = ' ' + (result[leg - 1].thoi_gian);
-
+            
+            var waterCurrent = ' ' + (result[0].muc_nuoc);
+            var timeUpdate = ' ' + (result[0].thoi_gian);
+            
             $("#spanCurrentWater").text(waterCurrent + " m");
             $("#currentWaterLevel").text(timeUpdate);
             // $("#widthWaterCurrent").setAttribute("width", "'" + waterCurrent + "%'");
 
-            if(result[leg - 1].muc_nuoc >= muc_1){
+            if(result[0].muc_nuoc >= muc_1){
                 $("#txt_canh_bao").text("Cảnh báo mức 1");
                 document.getElementById("ic_canh_bao").style.color = "#F0E68C";
             }
-            if(result[leg - 1].muc_nuoc >= muc_2){
+            if(result[0].muc_nuoc >= muc_2){
                 $("#txt_canh_bao").text("Cảnh báo mức 2");
                 document.getElementById("ic_canh_bao").style.color = "#FFD700";
             }
-            if(result[leg - 1].muc_nuoc >= muc_3){
+            if(result[0].muc_nuoc >= muc_3){
                 $("#txt_canh_bao").text("Cảnh báo mức 3");
                 document.getElementById("ic_canh_bao").style.color = "#B22222";
             }

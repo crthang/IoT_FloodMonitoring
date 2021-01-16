@@ -6,10 +6,26 @@ module.exports.index = async function(req, res) {
     res.json(stations);
 };
 
+//*Xem thông tin SĐT trạm theo Mã trạm
+module.exports.xemSDTTram = async function(req, res) {
+    var ma_tram = req.params.ma_tram;
+    const  station = await Station.find({ ma_tram:ma_tram }).exec();
+    const  sdt =  (station[0]['sdt']);
+    res.send(sdt);
+};
+
+//*Xem thông tin Mực cảnh báo trạm theo Mã trạm
+module.exports.xemCanhBaoTram = async function(req, res) {
+    var ma_tram = req.params.ma_tram;
+    const  station = await Station.find({ ma_tram:ma_tram }).exec();
+    const  level =  (station[0]['muc_1']);
+    res.json(level);
+};
+
 //*Xem thông tin trạm theo Mã trạm
 module.exports.xemTram = async function(req, res) {
     var ma_tram = req.params.ma_tram;
-    var station = await Station.find({ ma_tram:ma_tram }).exec();
+    const  station = await Station.find({ ma_tram:ma_tram }).exec();
     res.json(station);
 };
 

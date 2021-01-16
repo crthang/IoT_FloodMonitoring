@@ -1,3 +1,4 @@
+var HOST_URL = "http://localhost:3000";
 var ten_tram;
 var ma_tram;
 var temp ="";
@@ -5,7 +6,7 @@ var id = document.getElementById("tram").text;
 
 //*Hiển thị danh danh sách trạm trong menu
 $.ajax({
-    url: 'http://localhost:3000/api/station',
+    url: HOST_URL+'/api/station',
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     },
@@ -36,7 +37,7 @@ $(document).ready(function() {
 function getInfoStation(id) {
     var ten_tram, ma_tram, sdt, vi_do, kinh_do, muc_1 , muc_2 , muc_3;
     $.ajax({
-        url: 'http://localhost:3000/api/station/'+id,
+        url: HOST_URL+'/api/station/'+id,
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
         },
@@ -77,9 +78,10 @@ $(document).ready(function() {
         var txt_level_1 = document.querySelector('#waterLevelWarning1').value;
         var txt_level_2 = document.querySelector('#waterLevelWarning2').value;
         var txt_level_3 = document.querySelector('#waterLevelWarning3').value;
+console.log(HOST_URL+'/api/station/update/'+id);
 
         $.ajax({
-            url: 'http://localhost:3000/api/station/update/'+id,
+            url: HOST_URL+'/api/station/update/'+id,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
