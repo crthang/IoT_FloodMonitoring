@@ -1,4 +1,4 @@
-var HOST_URL = "https://flood-monitoring.herokuapp.com";
+var HOST_URL = "https://flood-monitoring.herokuapp.com/";
 var ten_tram;
 var ma_tram;
 var temp ="";
