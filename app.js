@@ -56,7 +56,8 @@ app.get("/api/data/:muc_nuoc", function(req, res) {
     var month = ("0" + (date_ob.getMonth() + 1)).slice(-2);
     var year = date_ob.getFullYear();
 
-    var hours = parseInt(date_ob.getHours()) + 7;
+    // var hours = parseInt(date_ob.getHours()) + 7;
+    var hours = (parseInt(date_ob.getHours()) + 7)-6;
 
     if (hours >= 24) {
         date = ("0" + (parseInt(date_ob.getDate() + 1))).slice(-2);

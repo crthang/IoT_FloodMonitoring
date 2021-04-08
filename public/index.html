@@ -115,7 +115,7 @@
                                 </button>
                                     <div class="dropdown-menu">
                                         <h5 class="dropdown-header">Chọn trạm</h5>
-                                          <div id="ds_tram" > </div>
+                                          <div id="ds_tram"> </div>
                                         <h5 class="dropdown-header">Khác</h5>
                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#themTram">Thêm trạm</a>
                                     </div>
@@ -351,6 +351,8 @@
     <script>
         $(document).ready(function () {
             $("a.dstram").click(function () {
+                console.log('clieck');
+                
                 var tagID = $(this).attr('id'); 
                 checkStation(tagID);
                 loadData(tagID); 

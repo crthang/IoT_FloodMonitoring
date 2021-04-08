@@ -3,15 +3,15 @@ var User = require('../models/user.model');
 
 
 module.exports.index_CL = function(req, res) {
-    Data.find().then(function(datas) {
-        var leg = datas.length;
-        var waterCurrent = (datas[leg - 1].waterLevel);
+    Data.find().then(function(data) {
+        var leg = data.length;
+        var waterCurrent = (data[leg - 1].waterLevel);
 
         res.render('index', {
             title: 'Home',
             pageTitle: "Bảng điều khiển",
             waterLevelCurrent: waterCurrent,
-            datas: datas
+            datas: data
         });
     });
 }
